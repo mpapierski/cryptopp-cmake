@@ -1,0 +1,20 @@
+language: cpp
+compiler:
+  - clang
+  - gcc
+env:
+  - OPTIONS="-DCMAKE_BUILD_TYPE=Release"
+  - OPTIONS="-DCMAKE_BUILD_TYPE=Debug"
+matrix:
+  include:
+   - compiler: i586-mingw32msvc-gcc
+     env: OPTIONS="-DWIN32=ON -DMINGW=ON"
+install:
+  - sudo apt-get update >/dev/null
+  - sudo apt-get -q install cmake
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake --build .
+  - ctest --verbose
